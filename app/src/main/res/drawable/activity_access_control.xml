@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECEFF1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Panel de Control de Acceso"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/btnRFID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acceso con Tarjeta RFID"
+        android:backgroundTint="#2196F3"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acceso mediante App"
+        android:backgroundTint="#4CAF50"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnManual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acceso manual (teclado físico)"
+        android:backgroundTint="#FF9800"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/btnHistorial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver historial de accesos"
+        android:backgroundTint="#9C27B0"
+        android:textColor="@android:color/white" />
+</LinearLayout>
