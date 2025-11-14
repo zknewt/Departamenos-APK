@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.smartaccesscontrol.utils.SweetDialogs
 import com.example.smartaccesscontrol.R
 import com.example.smartaccesscontrol.api.ApiClient
 import com.example.smartaccesscontrol.api.ApiService
@@ -39,10 +39,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
             val api = ApiClient.retrofit.create(ApiService::class.java)
-            api.login(correo, password).enqueue(object : Callback<Map<String, String>> {
+            api.login(correo, password).enqueue(object : Callback<Map<String, Any>> {
                 override fun onResponse(
-                    call: Call<Map<String, String>>,
-                    response: Response<Map<String, String>>
+                    call: Call<Map<String, Any>>,
+                    response: Response<Map<String, Any>>
                 ) {
                     if (response.isSuccessful && response.body()?.get("success") == "1") {
                         SweetDialogs.success(this@LoginActivity, "Bienvenido") {
@@ -53,8 +53,22 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Map<String, String>>, t: Throwable) {
+                override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
                     SweetDialogs.error(this@LoginActivity, "Error de conexión: ${t.message}")
+                }
+
+                override fun onResponse(
+                    call: Call<Map<String, Any>?>,
+                    response: Response<Map<String, Any>?>
+                ) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onFailure(
+                    call: Call<Map<String, Any>?>,
+                    t: Throwable
+                ) {
+                    TODO("Not yet implemented")
                 }
             })
         }

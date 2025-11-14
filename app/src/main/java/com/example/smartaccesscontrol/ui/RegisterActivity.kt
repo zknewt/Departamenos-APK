@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.smartaccesscontrol.utils.SweetDialogs
 import com.example.smartaccesscontrol.R
 import com.example.smartaccesscontrol.api.ApiClient
 import com.example.smartaccesscontrol.api.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -37,10 +38,10 @@ class RegisterActivity : AppCompatActivity() {
                 txtApellido.text.toString(),
                 txtCorreo.text.toString(),
                 txtPassword.text.toString()
-            ).enqueue(object : Callback<Map<String, String>> {
+            ).enqueue(object : Callback<Map<String, Any>> {
                 override fun onResponse(
-                    call: Call<Map<String, String>>,
-                    response: Response<Map<String, String>>
+                    call: Call<Map<String, Any>>,
+                    response: Response<Map<String, Any>>
                 ) {
                     if (response.isSuccessful && response.body()?.get("success") == "1") {
                         SweetDialogs.success(this@RegisterActivity, "Usuario registrado") {
@@ -51,8 +52,22 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Map<String, String>>, t: Throwable) {
+                override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
                     SweetDialogs.error(this@RegisterActivity, "Error de conexión: ${t.message}")
+                }
+
+                override fun onResponse(
+                    call: Call<Map<String, Any>?>,
+                    response: Response<Map<String, Any>?>
+                ) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onFailure(
+                    call: Call<Map<String, Any>?>,
+                    t: Throwable
+                ) {
+                    TODO("Not yet implemented")
                 }
             })
         }
