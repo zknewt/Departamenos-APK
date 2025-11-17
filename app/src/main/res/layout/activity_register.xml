@@ -24,7 +24,7 @@
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre"
+            android:hint="Nombre *"
             android:padding="12dp"
             android:layout_marginBottom="12dp"
             android:background="@android:drawable/edit_text" />
@@ -33,7 +33,7 @@
             android:id="@+id/txtApellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Apellido"
+            android:hint="Apellido *"
             android:padding="12dp"
             android:layout_marginBottom="12dp"
             android:background="@android:drawable/edit_text" />
@@ -42,7 +42,7 @@
             android:id="@+id/txtCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Correo electrónico"
+            android:hint="Correo electrónico *"
             android:inputType="textEmailAddress"
             android:padding="12dp"
             android:layout_marginBottom="12dp"
@@ -52,8 +52,34 @@
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Contraseña"
+            android:hint="Contraseña (mínimo 6 caracteres) *"
             android:inputType="textPassword"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:drawable/edit_text" />
+
+        <EditText
+            android:id="@+id/txtTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teléfono (opcional)"
+            android:inputType="phone"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:drawable/edit_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Departamento *"
+            android:textSize="14sp"
+            android:textColor="#666"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinnerDepartamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="12dp"
             android:layout_marginBottom="24dp"
             android:background="@android:drawable/edit_text" />
@@ -65,5 +91,13 @@
             android:text="Registrar usuario"
             android:backgroundTint="#4CAF50"
             android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="* Campos obligatorios"
+            android:textSize="12sp"
+            android:textColor="#999"
+            android:layout_marginTop="16dp" />
     </LinearLayout>
 </ScrollView>

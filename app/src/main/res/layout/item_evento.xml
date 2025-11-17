@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/indicadorColorEvento"
+            android:layout_width="8dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_green_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tvFechaHoraEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15/11/2024 14:30:25"
+                android:textSize="12sp"
+                android:textColor="#999"
+                android:layout_marginBottom="4dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tvTipoEvento"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ACCESO VALIDO"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#333" />
+
+                <TextView
+                    android:id="@+id/tvResultadoEvento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PERMITIDO"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_green_dark" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvMetodoEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Método: RFID"
+                android:textSize="13sp"
+                android:textColor="#666"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvUsuarioEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario: Juan Pérez"
+                android:textSize="13sp"
+                android:textColor="#666"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvSensorEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TARJETA: A1B2C3D4"
+                android:textSize="13sp"
+                android:textColor="#666"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvDetallesEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detalles adicionales"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:textColor="#999"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

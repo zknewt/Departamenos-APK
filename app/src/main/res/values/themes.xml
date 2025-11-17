@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Theme Base usando AppCompat -->
+    <style name="Theme.SmartAccessControl" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Colores primarios -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/teal_200</item>
 
-    <style name="Theme.SmartAccessControl" parent="android:Theme.Material.Light.NoActionBar" />
+        <!-- Eliminar ActionBar para activities que lo necesiten -->
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+    </style>
+
+    <!-- Theme sin ActionBar (opcional para pantallas específicas) -->
+    <style name="Theme.SmartAccessControl.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

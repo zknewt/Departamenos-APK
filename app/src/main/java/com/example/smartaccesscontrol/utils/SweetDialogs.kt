@@ -17,11 +17,27 @@ object SweetDialogs {
             .show()
     }
 
-    fun error(context: Context, mensaje: String) {
+    fun error(context: Context, mensaje: String, onConfirm: (() -> Unit)? = null) {
         SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
             .setTitleText("Error")
             .setContentText(mensaje)
             .setConfirmText("OK")
+            .setConfirmClickListener {
+                it.dismissWithAnimation()
+                onConfirm?.invoke()
+            }
+            .show()
+    }
+
+    fun warning(context: Context, titulo: String, mensaje: String, onConfirm: (() -> Unit)? = null) {
+        SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(titulo)
+            .setContentText(mensaje)
+            .setConfirmText("Aceptar")
+            .setConfirmClickListener {
+                it.dismissWithAnimation()
+                onConfirm?.invoke()
+            }
             .show()
     }
 }

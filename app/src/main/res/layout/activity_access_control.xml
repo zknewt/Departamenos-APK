@@ -1,52 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECEFF1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Panel de Control de Acceso"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp" />
-
-    <Button
-        android:id="@+id/btnRFID"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Acceso con Tarjeta RFID"
-        android:backgroundTint="#2196F3"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="12dp" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnApp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Acceso mediante App"
-        android:backgroundTint="#4CAF50"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="12dp" />
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tvBienvenida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bienvenido"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:layout_marginBottom="8dp" />
 
-    <Button
-        android:id="@+id/btnManual"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Acceso manual (teclado físico)"
-        android:backgroundTint="#FF9800"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="32dp" />
+        <TextView
+            android:id="@+id/tvRol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rol: Operador"
+            android:textSize="14sp"
+            android:textColor="#666"
+            android:layout_marginBottom="4dp" />
 
-    <Button
-        android:id="@+id/btnHistorial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ver historial de accesos"
-        android:backgroundTint="#9C27B0"
-        android:textColor="@android:color/white" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvDepartamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Departamento: 101-A"
+            android:textSize="14sp"
+            android:textColor="#666"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Estado de Barrera -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:elevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvEstadoBarrera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estado Barrera: CERRADA"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_red_dark" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Control de Barrera -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Control de Barrera"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnAbrirBarrera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔓 Abrir Barrera"
+            android:backgroundTint="#4CAF50"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnCerrarBarrera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔒 Cerrar Barrera"
+            android:backgroundTint="#F44336"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Acceso -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Acceso Rápido"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnAccesoApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📱 Registrar Acceso desde App"
+            android:backgroundTint="#2196F3"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Gestión (Solo Admin) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión (Solo Administradores)"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnGestionSensores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔑 Gestión de Sensores"
+            android:backgroundTint="#FF9800"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnGestionUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👥 Gestión de Usuarios"
+            android:backgroundTint="#9C27B0"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Historial -->
+        <Button
+            android:id="@+id/btnHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📋 Ver Historial de Accesos"
+            android:backgroundTint="#607D8B"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Cerrar Sesión -->
+        <Button
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚪 Cerrar Sesión"
+            android:backgroundTint="#757575"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</ScrollView>
