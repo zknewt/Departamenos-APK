@@ -1,0 +1,133 @@
+<?php
+/**
+ * API: Cambiar rol de un usuario
+ * Método: POST
+ * Parámetros: id_usuario_objetivo, nuevo_rol, id_usuario_admin
+ * NOTA: Solo puede haber UN administrador por departamento
+ */
+
+require_once '../db_config.php';
+
+// Validar método
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    respuestaError('Método no permitido', 405);
+}
+
+// Validar parámetros
+validarParametros(['id_usuario_objetivo', 'nuevo_rol', 'id_usuario_admin']);
+
+$id_usuario_objetivo = intval($_POST['id_usuario_objetivo']);
+$nuevo_rol = strtolower(sanitizar($_POST['nuevo_rol']));
+$id_usuario_admin = intval($_POST['id_usuario_admin']);
+
+// Validar rol
+$roles_validos = ['administrador', 'operador'];
+if (!in_array($nuevo_rol, $roles_validos)) {
+    respuestaError('Rol inválido. Debe ser: administrador u operador');
+}
+
+// Conectar a BD
+$conn = conectarDB();
+if (!$conn) {
+    respuestaError('Error de conexión a la base de datos', 500);
+}
+
+// Verificar que el usuario objetivo existe
+$sql_objetivo = "SELECT id_departamento, nombre, apellido, rol FROM usuarios WHERE id_usuario = ?";
+$stmt_objetivo = $conn->prepare($sql_objetivo);
+$stmt_objetivo->bind_param("i", $id_usuario_objetivo);
+$stmt_objetivo->execute();
+$result_objetivo = $stmt_objetivo->get_result();
+
+if ($result_objetivo->num_rows === 0) {
+    $stmt_objetivo->close();
+    $conn->close();
+    respuestaError('Usuario objetivo no encontrado', 404);
+}
+
+$usuario_objetivo = $result_objetivo->fetch_assoc();
+$id_departamento = $usuario_objetivo['id_departamento'];
+$rol_anterior = $usuario_objetivo['rol'];
+$stmt_objetivo->close();
+
+// Verificar que el usuario admin es del mismo departamento y es administrador
+$sql_admin = "SELECT rol FROM usuarios WHERE id_usuario = ? AND id_departamento = ?";
+$stmt_admin = $conn->prepare($sql_admin);
+$stmt_admin->bind_param("ii", $id_usuario_admin, $id_departamento);
+$stmt_admin->execute();
+$result_admin = $stmt_admin->get_result();
+
+if ($result_admin->num_rows === 0) {
+    $stmt_admin->close();
+    $conn->close();
+    respuestaError('Administrador no pertenece al mismo departamento', 403);
+}
+
+$admin = $result_admin->fetch_assoc();
+if ($admin['rol'] !== 'administrador') {
+    $stmt_admin->close();
+    $conn->close();
+    respuestaError('Solo administradores pueden cambiar roles', 403);
+}
+$stmt_admin->close();
+
+// Si se quiere hacer administrador a alguien
+if ($nuevo_rol === 'administrador') {
+    // Verificar que no haya otro administrador en el departamento
+    $sql_check = "SELECT id_usuario FROM usuarios 
+                  WHERE id_departamento = ? 
+                  AND rol = 'administrador' 
+                  AND id_usuario != ?";
+    $stmt_check = $conn->prepare($sql_check);
+    $stmt_check->bind_param("ii", $id_departamento, $id_usuario_objetivo);
+    $stmt_check->execute();
+    $result_check = $stmt_check->get_result();
+    
+    if ($result_check->num_rows > 0) {
+        $stmt_check->close();
+        $conn->close();
+        respuestaError('Ya existe un administrador en este departamento. Primero cambia el rol del administrador actual a operador', 400);
+    }
+    $stmt_check->close();
+}
+
+// No permitir que el administrador se quite su propio rol si es el único admin
+if ($id_usuario_admin === $id_usuario_objetivo && $nuevo_rol === 'operador') {
+    // Verificar si hay otros admins
+    $sql_count = "SELECT COUNT(*) as total FROM usuarios 
+                  WHERE id_departamento = ? 
+                  AND rol = 'administrador'";
+    $stmt_count = $conn->prepare($sql_count);
+    $stmt_count->bind_param("i", $id_departamento);
+    $stmt_count->execute();
+    $result_count = $stmt_count->get_result();
+    $count = $result_count->fetch_assoc();
+    $stmt_count->close();
+    
+    if ($count['total'] <= 1) {
+        $conn->close();
+        respuestaError('No puedes quitarte el rol de administrador si eres el único administrador del departamento', 400);
+    }
+}
+
+// Actualizar rol
+$sql_update = "UPDATE usuarios SET rol = ? WHERE id_usuario = ?";
+$stmt_update = $conn->prepare($sql_update);
+$stmt_update->bind_param("si", $nuevo_rol, $id_usuario_objetivo);
+
+if ($stmt_update->execute()) {
+    $stmt_update->close();
+    $conn->close();
+    
+    respuestaExito([
+        'id_usuario' => $id_usuario_objetivo,
+        'nombre' => $usuario_objetivo['nombre'] . ' ' . $usuario_objetivo['apellido'],
+        'rol_anterior' => $rol_anterior,
+        'rol_nuevo' => $nuevo_rol
+    ], "Rol actualizado de $rol_anterior a $nuevo_rol");
+} else {
+    $stmt_update->close();
+    $conn->close();
+    respuestaError('Error al actualizar el rol', 500);
+}
+?>
